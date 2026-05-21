@@ -1,5 +1,7 @@
 # homelab degoog extensions
 
+![zen theme preview](themes/zen/screenshots/preview.png)
+
 Custom theme and plugins for the homelab degoog instance.
 
 ## Contents
@@ -9,7 +11,8 @@ Custom theme and plugins for the homelab degoog instance.
 Modified version of the official zen theme with:
 
 - **Glass morphism** — `.degoog-panel`, search bars, badges, inputs, dropdowns, icon buttons with backdrop-filter blur and subtle shadows
-- **Google-style search focus** — content blurs and scales down when the search bar is focused; search bar grows and shifts up
+- **Google-style search focus** — content blurs when the search bar is focused; search bar grows and shifts up
+- **Instant unfocus** — no delay when pressing Escape or clicking outside the search bar
 - **Color modes** — light (6% opacity glass) and dark (20% opacity glass)
 
 ### Keyboard Navigation plugin

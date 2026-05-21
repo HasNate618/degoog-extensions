@@ -70,17 +70,9 @@
           }
         });
         document.addEventListener("focusout", function(e) {
-          setTimeout(function() {
-            var a = document.activeElement;
-            if (!a || !a.closest) { document.body.classList.remove("degoog-search-active"); return; }
-            try {
-              if (!a.closest(".search-bar, .results-search-bar, .ac-dropdown")) {
-                document.body.classList.remove("degoog-search-active");
-              }
-            } catch(_) {
-              document.body.classList.remove("degoog-search-active");
-            }
-          }, 200);
+          var related = e.relatedTarget;
+          if (related && related.closest && related.closest(".search-bar, .results-search-bar, .ac-dropdown")) return;
+          document.body.classList.remove("degoog-search-active");
         });
       })();
     </script>
