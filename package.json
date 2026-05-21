@@ -1,0 +1,23 @@
+{
+  "name": "homelab-degoog-extensions",
+  "description": "Custom zen theme with glass effects and keyboard navigation plugin for degoog.",
+  "author": "nate",
+  "repo-image": "https://raw.githubusercontent.com/nate/homelab-degoog-extensions/main/logo.png",
+  "themes": [
+    {
+      "path": "themes/zen",
+      "name": "zen",
+      "description": "Minimalist calming theme with glass morphism effects, Google-style search focus blur, and hotkey navigation support.",
+      "version": "1.0.0"
+    }
+  ],
+  "plugins": [
+    {
+      "path": "plugins/hotkeys",
+      "name": "Keyboard Navigation",
+      "description": "j/k/Enter/o/t/g/G/y/Esc hotkeys for navigating search results. Select results with j/k, open with Enter/o, open in new tab with t, scroll with g/G, copy URL with y.",
+      "version": "1.0.0",
+      "type": "command"
+    }
+  ]
+}

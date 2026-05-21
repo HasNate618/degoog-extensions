@@ -1,0 +1,5 @@
+.result-item.hotkey-selected {
+  outline: 2px solid var(--accent, #f76f53) !important;
+  outline-offset: 2px;
+  border-radius: 12px !important;
+}
