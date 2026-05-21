@@ -1,23 +1,33 @@
-# homelab degoog extensions
-
-![zen theme preview](themes/zen/screenshots/preview.png)
+# degoog extensions
 
 Custom theme and plugins for the homelab degoog instance.
 
-## Contents
+## Usage
 
-### zen theme
+Add this repo URL in **Settings → Store → Add**:
 
-Modified version of the official zen theme with:
+```
+https://github.com/HasNate618/degoog-extensions.git
+```
 
-- **Glass morphism** — `.degoog-panel`, search bars, badges, inputs, dropdowns, icon buttons with backdrop-filter blur and subtle shadows
-- **Google-style search focus** — content blurs when the search bar is focused; search bar grows and shifts up
-- **Instant unfocus** — no delay when pressing Escape or clicking outside the search bar
-- **Color modes** — light (6% opacity glass) and dark (20% opacity glass)
+Install the theme from **Settings → Themes** and the plugin from **Settings → Plugins**.
 
-### Keyboard Navigation plugin
+<details>
+<summary><b>🎨 Themes</b></summary>
 
-`!hotkeys` — navigate search results entirely from the keyboard:
+### zen
+
+![Home](themes/zen/screenshots/preview.png)
+![Search focus](themes/zen/screenshots/2.png)
+
+</details>
+
+<details>
+<summary><b>🔌 Plugins</b></summary>
+
+### Keyboard Navigation
+
+`!hotkeys` — navigate search results from the keyboard.
 
 | Key | Action |
 |-----|--------|
@@ -30,12 +40,4 @@ Modified version of the official zen theme with:
 
 All keys are ignored while typing in an input field.
 
-## Usage
-
-Add this repo URL in **Settings → Store → Add**:
-
-```
-https://github.com/nate/homelab-degoog-extensions.git
-```
-
-Install the theme from **Settings → Themes** and the plugin from **Settings → Plugins**. Once the plugin is installed, `!hotkeys` shows the key reference, and the hotkeys work immediately on any search results page.
+</details>
