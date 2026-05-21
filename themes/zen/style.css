@@ -825,12 +825,6 @@ a:hover {
   display: none !important;
 }
 
-.degoog-search-active #main-home > *:not(.search-container) {
-  filter: blur(20px);
-  scale: 0.98;
-  pointer-events: none;
-}
-
 .degoog-search-active .results-logo,
 .degoog-search-active #nav-settings-results,
 .degoog-search-active #results-tabs,
@@ -860,11 +854,14 @@ a:hover {
 .degoog-search-active #results-header {
   position: relative;
   z-index: 10;
-  transition: all 0.3s ease-in-out;
 }
 
 #main-home > *,
 #results-page > * {
+  transition: all 0.1s ease-in-out;
+}
+
+.degoog-search-active #results-page > * {
   transition: all 0.3s ease-in-out;
 }
 
