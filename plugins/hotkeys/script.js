@@ -162,6 +162,12 @@
       return;
     }
 
+    if (key === "q" && !shift) {
+      e.preventDefault();
+      window.close();
+      return;
+    }
+
     if ((key === "g" || key === "G") && !shift) {
       e.preventDefault();
       window.scrollTo({ top: 0, behavior: "smooth" });
