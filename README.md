@@ -21,6 +21,18 @@ Install the theme from **Settings → Themes** and the plugin from **Settings �
 
 ## 🔌 Plugins
 
+### Unit Converter
+
+`!convert` or `!c` — interactive unit converter widget with auto-detection. Converts length, mass, volume, temperature, digital storage, speed, area, and currency.
+
+![Converter](plugins/converter/screenshots/preview.png)
+
+**Auto-detection**: search `100m to feet`, `5 kg to lb`, or `30°C to F` and the widget appears above results.
+
+**Command**: `!convert 5ft to m` or `!c 100 usd to eur`.
+
+All units are two-way — type on either side, swap with the ⇄ button, or change dropdowns to recompute.
+
 ### Keyboard Navigation
 
 `!hotkeys` — navigate search results from the keyboard.
