@@ -141,9 +141,7 @@ var UNIT_ALIASES = {
   "eur": "EUR", "euro": "EUR", "euros": "EUR",
   "gbp": "GBP", "pound sterling": "GBP",
   "jpy": "JPY", "yen": "JPY", "jpy": "JPY",
-  "cad": "CAD",
-  "aud": "AUD",
-  "chf": "CHF",
+  "cad": "CAD", "aud": "AUD", "chf": "CHF",
   "cny": "CNY", "yuan": "CNY",
   "inr": "INR", "rupee": "INR",
   "mxn": "MXN", "peso": "MXN",
@@ -151,67 +149,41 @@ var UNIT_ALIASES = {
 };
 
 function findCategory(unit) {
-  for (var id in CATEGORIES) {
-    if (CATEGORIES[id].units[unit]) return id;
-  }
+  for (var id in CATEGORIES) { if (CATEGORIES[id].units[unit]) return id; }
   return null;
 }
 
 function resolveUnit(text) {
   text = text.trim().toLowerCase();
-  if (UNIT_ALIASES[text]) return UNIT_ALIASES[text];
-  return null;
+  return UNIT_ALIASES[text] || null;
 }
 
 function parseQuery(text) {
   text = text.replace(/^(?:convert|conversion)\s+/i, "").trim();
-  var value, from, to, fromKey, toKey, cat;
-
-  function tryMatch(pattern, valueIdx, fromIdx, toIdx) {
-    var m = text.match(pattern);
-    if (!m) return null;
-    var v = valueIdx !== null ? parseFloat(m[valueIdx]) : 1;
-    var f = resolveUnit(m[fromIdx]);
-    var t = toIdx !== null ? resolveUnit(m[toIdx]) : null;
-    if (!f) return null;
-    var c = findCategory(f);
-    if (!c) return null;
-    if (t) {
-      var tc = findCategory(t);
-      if (tc !== c) return null;
-    }
+  function tryMatch(p, vi, fi, ti) {
+    var m = text.match(p); if (!m) return null;
+    var v = vi !== null ? parseFloat(m[vi]) : 1;
+    var f = resolveUnit(m[fi]); if (!f) return null;
+    var c = findCategory(f); if (!c) return null;
+    var t = ti !== null ? resolveUnit(m[ti]) : null;
+    if (t) { var tc = findCategory(t); if (tc !== c) return null; }
     return { category: c, value: v, from: f, to: t || CATEGORIES[c].defaultTo };
   }
-
-  var result;
-
-  result = tryMatch(/^(\d+(?:\.\d+)?)\s+(.+?)\s+(?:to|in|as)\s+(.+)$/i, 1, 2, 3);
-  if (result) return result;
-
-  result = tryMatch(/^(\d+(?:\.\d+)?)\s*([a-zA-Z\xB0\xB2\xB3]+)\s+(?:to|in|as)\s+(.+)$/i, 1, 2, 3);
-  if (result) return result;
-
-  result = tryMatch(/^(\d+(?:\.\d+)?)\s+(.+)$/i, 1, 2, null);
-  if (result) return result;
-
-  result = tryMatch(/^(\d+(?:\.\d+)?)\s*([a-zA-Z\xB0\xB2\xB3]+)$/i, 1, 2, null);
-  if (result) return result;
-
-  result = tryMatch(/^(.+?)\s+(?:to|in|as)\s+(.+)$/i, null, 1, 2);
-  if (result) return result;
-
+  var r;
+  r = tryMatch(/^(\d+(?:\.\d+)?)\s+(.+?)\s+(?:to|in|as)\s+(.+)$/i, 1, 2, 3); if (r) return r;
+  r = tryMatch(/^(\d+(?:\.\d+)?)\s*([a-zA-Z\xB0\xB2\xB3]+)\s+(?:to|in|as)\s+(.+)$/i, 1, 2, 3); if (r) return r;
+  r = tryMatch(/^(\d+(?:\.\d+)?)\s+(.+)$/i, 1, 2, null); if (r) return r;
+  r = tryMatch(/^(\d+(?:\.\d+)?)\s*([a-zA-Z\xB0\xB2\xB3]+)$/i, 1, 2, null); if (r) return r;
+  r = tryMatch(/^(.+?)\s+(?:to|in|as)\s+(.+)$/i, null, 1, 2); if (r) return r;
   return null;
 }
 
 function doConvert(value, from, to) {
-  var cat = findCategory(from);
-  if (!cat) return null;
-  var units = CATEGORIES[cat].units;
-  if (from === to) return value;
-  var fromDef = units[from];
-  var toDef = units[to];
-  var base = typeof fromDef.toBase === "function" ? fromDef.toBase(value) : value * fromDef.toBase;
-  return typeof toDef.fromBase === "function" ? toDef.fromBase(base) : base / toDef.toBase;
+  var cat = findCategory(from); if (!cat) return null;
+  var units = CATEGORIES[cat].units; if (from === to) return value;
+  var f = units[from]; var t = units[to];
+  var base = typeof f.toBase === "function" ? f.toBase(value) : value * f.toBase;
+  return typeof t.fromBase === "function" ? t.fromBase(base) : base / t.toBase;
 }
 
 function formatNum(n) {
@@ -220,36 +192,23 @@ function formatNum(n) {
 }
 
 function buildOptions(cat, selected) {
-  var html = "";
-  for (var key in cat.units) {
-    var sel = key === selected ? " selected" : "";
-    html += "<option value=\"" + key + "\"" + sel + ">" + cat.units[key].name + " (" + key + ")</option>";
-  }
-  return html;
+  var h = "";
+  for (var k in cat.units) h += "<option value=\"" + k + "\"" + (k === selected ? " selected" : "") + ">" + cat.units[k].name + " (" + k + ")</option>";
+  return h;
 }
 
 function buildWidget(parsed) {
-  var cat = CATEGORIES[parsed.category];
-  if (!cat) return "<div class=\"dcw\">Unknown category</div>";
-  var fromVal = parsed.value;
-  var toVal = formatNum(doConvert(fromVal, parsed.from, parsed.to));
-
+  var cat = CATEGORIES[parsed.category]; if (!cat) return "";
+  var r = doConvert(parsed.value, parsed.from, parsed.to);
   return "<div class=\"dcw\" data-cat=\"" + parsed.category + "\">"
     + "<div class=\"dcw-bd\">"
-    + "<div class=\"dcw-col\">"
-    + "<input class=\"dcw-inp\" data-side=\"left\" value=\"" + formatNum(fromVal) + "\" inputmode=\"decimal\">"
-    + "<select class=\"dcw-sel\" data-side=\"left\">" + buildOptions(cat, parsed.from) + "</select>"
-    + "</div>"
+    + "<div class=\"dcw-col\"><input class=\"dcw-inp\" data-side=\"left\" value=\"" + formatNum(parsed.value) + "\" inputmode=\"decimal\"><select class=\"dcw-sel\" data-side=\"left\">" + buildOptions(cat, parsed.from) + "</select></div>"
     + "<button class=\"dcw-swap\" title=\"Swap units\">\u21C4</button>"
-    + "<div class=\"dcw-col\">"
-    + "<input class=\"dcw-inp\" data-side=\"right\" value=\"" + toVal + "\" inputmode=\"decimal\">"
-    + "<select class=\"dcw-sel\" data-side=\"right\">" + buildOptions(cat, parsed.to) + "</select>"
-    + "</div>"
-    + "</div>"
-    + "</div>";
+    + "<div class=\"dcw-col\"><input class=\"dcw-inp\" data-side=\"right\" value=\"" + formatNum(r) + "\" inputmode=\"decimal\"><select class=\"dcw-sel\" data-side=\"right\">" + buildOptions(cat, parsed.to) + "</select></div>"
+    + "</div></div>";
 }
 
-var command = {
+export default {
   trigger: "convert",
   aliases: ["c", "conv"],
   isClientExposed: false,
@@ -262,5 +221,3 @@ var command = {
     return { title: "Unit Converter", html: buildWidget(parsed) };
   },
 };
-
-export default command;

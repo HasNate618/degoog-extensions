@@ -64,6 +64,7 @@
   cursor: pointer;
   font-family: inherit;
   transition: border-color 0.15s;
+  color-scheme: dark;
 }
 
 .dcw-sel:focus {
