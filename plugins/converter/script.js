@@ -88,105 +88,10 @@
     },
   };
 
-  var UNIT_ALIASES = {
-    "millimeter": "mm", "millimeters": "mm",
-    "centimeter": "cm", "centimeters": "cm",
-    "meter": "m", "meters": "m", "metre": "m", "metres": "m", "m": "m",
-    "kilometer": "km", "kilometers": "km", "km": "km",
-    "inch": "in", "inches": "in", "in": "in",
-    "foot": "ft", "feet": "ft", "ft": "ft",
-    "yard": "yd", "yards": "yd", "yd": "yd",
-    "mile": "mi", "miles": "mi", "mi": "mi",
-    "milligram": "mg", "milligrams": "mg", "mg": "mg",
-    "gram": "g", "grams": "g", "g": "g",
-    "kilogram": "kg", "kilograms": "kg", "kg": "kg",
-    "ounce": "oz", "ounces": "oz", "oz": "oz",
-    "pound": "lb", "pounds": "lb", "lbs": "lb", "lb": "lb",
-    "milliliter": "mL", "milliliters": "mL", "ml": "mL",
-    "liter": "L", "liters": "L", "l": "L", "L": "L",
-    "fluid ounce": "fl-oz", "fluid ounces": "fl-oz", "fl oz": "fl-oz",
-    "cup": "cup", "cups": "cup",
-    "pint": "pt", "pints": "pt", "pt": "pt",
-    "quart": "qt", "quarts": "qt", "qt": "qt",
-    "gallon": "gal", "gallons": "gal", "gal": "gal",
-    "celsius": "C", "C": "C",
-    "fahrenheit": "F", "f": "F", "F": "F",
-    "kelvin": "K", "k": "K", "K": "K",
-    "byte": "B", "bytes": "B", "b": "B", "B": "B",
-    "kilobyte": "KB", "kilobytes": "KB", "kb": "KB", "KB": "KB",
-    "kibibyte": "KiB", "kibibytes": "KiB", "kib": "KiB", "KiB": "KiB",
-    "megabyte": "MB", "megabytes": "MB", "mb": "MB", "MB": "MB",
-    "mebibyte": "MiB", "mebibytes": "MiB", "mib": "MiB", "MiB": "MiB",
-    "gigabyte": "GB", "gigabytes": "GB", "gb": "GB", "GB": "GB",
-    "gibibyte": "GiB", "gibibytes": "GiB", "gib": "GiB", "GiB": "GiB",
-    "terabyte": "TB", "terabytes": "TB", "tb": "TB", "TB": "TB",
-    "tebibyte": "TiB", "tebibytes": "TiB", "tib": "TiB", "TiB": "TiB",
-    "km/h": "km/h", "kph": "km/h", "mph": "mph", "knot": "knot", "knots": "knot",
-    "square meter": "m\u00B2", "square meters": "m\u00B2", "m2": "m\u00B2",
-    "square foot": "ft\u00B2", "square feet": "ft\u00B2", "ft2": "ft\u00B2", "sqft": "ft\u00B2",
-    "acre": "acre", "acres": "acre", "hectare": "ha", "hectares": "ha", "ha": "ha",
-    "usd": "USD", "dollar": "USD", "dollars": "USD",
-    "eur": "EUR", "euro": "EUR", "euros": "EUR",
-    "gbp": "GBP", "jpy": "JPY", "yen": "JPY", "cad": "CAD",
-    "aud": "AUD", "chf": "CHF", "cny": "CNY", "yuan": "CNY",
-    "inr": "INR", "rupee": "INR", "mxn": "MXN", "peso": "MXN", "brl": "BRL", "real": "BRL",
-  };
-
   function findCategory(unit) {
     for (var id in CATEGORIES) {
       if (CATEGORIES[id].units[unit]) return id;
     }
-    return null;
-  }
-
-  function resolveUnit(text) {
-    text = text.trim().toLowerCase();
-    if (UNIT_ALIASES[text]) return UNIT_ALIASES[text];
-    return null;
-  }
-
-  function parseQuery(text) {
-    text = text.replace(/^(?:convert|conversion)\s+/i, "").trim();
-    function tryMatch(pattern, valueIdx, fromIdx, toIdx) {
-      var m = text.match(pattern);
-      if (!m) return null;
-      var v = valueIdx !== null ? parseFloat(m[valueIdx]) : 1;
-      var f = resolveUnit(m[fromIdx]);
-      var t = toIdx !== null ? resolveUnit(m[toIdx]) : null;
-      if (!f) return null;
-      var c = findCategory(f);
-      if (!c) return null;
-      if (t) {
-        var tc = findCategory(t);
-        if (tc !== c) return null;
-      }
-      return { category: c, value: v, from: f, to: t || defaults(f) };
-    }
-    var result;
-    result = tryMatch(/^(\d+(?:\.\d+)?)\s+(.+?)\s+(?:to|in|as)\s+(.+)$/i, 1, 2, 3);
-    if (result) return result;
-    result = tryMatch(/^(\d+(?:\.\d+)?)\s*([a-zA-Z\xB0\xB2\xB3]+)\s+(?:to|in|as)\s+(.+)$/i, 1, 2, 3);
-    if (result) return result;
-    result = tryMatch(/^(\d+(?:\.\d+)?)\s+(.+)$/i, 1, 2, null);
-    if (result) return result;
-    result = tryMatch(/^(\d+(?:\.\d+)?)\s*([a-zA-Z\xB0\xB2\xB3]+)$/i, 1, 2, null);
-    if (result) return result;
-    result = tryMatch(/^(.+?)\s+(?:to|in|as)\s+(.+)$/i, null, 1, 2);
-    if (result) return result;
-    return null;
-  }
-
-  function defaults(unit) {
-    var c = findCategory(unit);
-    if (!c) return null;
-    if (c === "length") return "ft";
-    if (c === "mass") return "lb";
-    if (c === "volume") return "gal";
-    if (c === "temperature") return "F";
-    if (c === "digital") return "GiB";
-    if (c === "speed") return "mph";
-    if (c === "area") return "ft\u00B2";
-    if (c === "currency") return "EUR";
     return null;
   }
 
@@ -207,7 +112,7 @@
   }
 
   function initWidget(widget) {
-    if (widget._dcwInited) return;
+    if (widget.dataset.dcwInited) return;
 
     var leftInput = widget.querySelector('[data-side="left"].dcw-inp');
     var rightInput = widget.querySelector('[data-side="right"].dcw-inp');
@@ -217,7 +122,7 @@
 
     if (!leftInput || !rightInput || !leftSelect || !rightSelect || !swapBtn) return;
 
-    widget._dcwInited = true;
+    widget.dataset.dcwInited = "1";
     var activeSide = "left";
 
     function compute() {
@@ -248,73 +153,19 @@
     });
   }
 
-  function buildOptions(catId, selected) {
-    var cat = CATEGORIES[catId];
-    if (!cat) return "";
-    var html = "";
-    for (var key in cat.units) {
-      var sel = key === selected ? " selected" : "";
-      html += "<option value=\"" + key + "\"" + sel + ">" + key + "</option>";
-    }
-    return html;
-  }
-
-  function injectWidget(parsed) {
-    if (document.querySelector(".dcw")) return;
-    var cat = parsed.category;
-    if (!CATEGORIES[cat]) return;
-    var fromVal = parsed.value;
-    var toVal = formatNum(doConvert(fromVal, parsed.from, parsed.to));
-    var html = "<div class=\"dcw\" data-cat=\"" + cat + "\">"
-      + "<div class=\"dcw-bd\">"
-      + "<div class=\"dcw-col\">"
-      + "<input class=\"dcw-inp\" data-side=\"left\" value=\"" + formatNum(fromVal) + "\" inputmode=\"decimal\">"
-      + "<select class=\"dcw-sel\" data-side=\"left\">" + buildOptions(cat, parsed.from) + "</select>"
-      + "</div>"
-      + "<button class=\"dcw-swap\" title=\"Swap units\">\u21C4</button>"
-      + "<div class=\"dcw-col\">"
-      + "<input class=\"dcw-inp\" data-side=\"right\" value=\"" + toVal + "\" inputmode=\"decimal\">"
-      + "<select class=\"dcw-sel\" data-side=\"right\">" + buildOptions(cat, parsed.to) + "</select>"
-      + "</div>"
-      + "</div>"
-      + "</div>";
-
-    var target = document.getElementById("results-list");
-    if (!target) return;
-    var temp = document.createElement("div");
-    temp.innerHTML = html;
-    var el = temp.firstElementChild;
-    target.insertBefore(el, target.firstChild);
-    initWidget(el);
-  }
-
-  function getQuery() {
-    var input = document.querySelector(".degoog-search-bar--results .search-input, #results-search-bar .search-input");
-    if (input && input.value) return input.value;
-    var params = new URLSearchParams(window.location.search);
-    var q = params.get("q");
-    if (q) return q;
-    return "";
-  }
-
-  function tryAutoDetect() {
-    var query = getQuery();
-    if (!query || query.startsWith("!")) return;
-    var parsed = parseQuery(query);
-    if (parsed) injectWidget(parsed);
-  }
-
   function initAll() {
     var widgets = document.querySelectorAll(".dcw");
     for (var i = 0; i < widgets.length; i++) initWidget(widgets[i]);
   }
 
   document.addEventListener("degoog-results-ready", function () {
-    setTimeout(function () {
-      initAll();
-      tryAutoDetect();
-    }, 100);
+    setTimeout(initAll, 50);
   });
 
-  setTimeout(function () { initAll(); tryAutoDetect(); }, 500);
+  var mo = new MutationObserver(function () {
+    if (document.querySelector(".dcw:not([data-dcw-inited])")) initAll();
+  });
+  mo.observe(document.body || document.documentElement, { childList: true, subtree: true });
+
+  if (document.querySelector(".dcw")) initAll();
 })();

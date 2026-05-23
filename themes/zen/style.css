@@ -87,6 +87,8 @@
   --contrast-bg: #2e2e2e;
   --contrast-text: #f2f0e3;
   --subtle-bg: #e4e1cf;
+  color-scheme: light;
+  scrollbar-color: #ccc #d6d2be;
 }
 
 :root[data-theme="dark"] {
@@ -129,6 +131,8 @@
   --contrast-bg: #f2f0e3;
   --contrast-text: #1f1f1f;
   --subtle-bg: #2a2a2a;
+  color-scheme: dark;
+  scrollbar-color: #555 #222;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -821,7 +825,8 @@ a:hover {
   display: none !important;
 }
 
-.results-slot-panel[data-grid="4"] {
+.results-slot-panel[data-grid="4"]:empty,
+.results-slot-panel[data-grid="4"] .results-slot-panel-body:empty {
   display: none !important;
 }
 
