@@ -15,9 +15,16 @@
     {
       "path": "plugins/hotkeys",
       "name": "Keyboard Navigation",
-      "description": "j/k/Enter/o/t/g/G/y/Esc hotkeys for navigating search results. Select results with j/k, open with Enter/o, open in new tab with t, scroll with g/G, copy URL with y.",
+      "description": "j/k/Enter/o/t/g/G/q/y/Esc hotkeys for navigating search results. Select results with j/k, open with Enter/o, open in new tab with t, close tab with q, scroll with g/G, copy URL with y.",
       "version": "1.0.0",
       "type": "command"
+    },
+    {
+      "path": "plugins/converter",
+      "name": "Unit Converter",
+      "description": "Interactive unit converter widget. Converts length, mass, volume, temperature, digital storage, speed, area, and currency. Auto-detects conversion queries like \"5 feet to meters\" or \"100 kg to lb\". Also supports !convert command.",
+      "version": "1.0.0",
+      "type": "slot"
     }
   ]
 }

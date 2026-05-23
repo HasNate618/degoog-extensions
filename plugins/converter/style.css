@@ -1,0 +1,102 @@
+.dcw {
+  background: var(--glass-bg, rgba(255,255,255,0.06));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border, rgba(255,255,255,0.08));
+  border-radius: 16px;
+  padding: 20px 24px;
+  margin: 0 0 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+}
+
+.dcw-bd {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.dcw-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.dcw-inp {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--glass-border, rgba(255,255,255,0.1));
+  background: var(--input-bg, rgba(255,255,255,0.04));
+  color: var(--text-primary, #fff);
+  font-size: 1.5em;
+  font-weight: 500;
+  outline: none;
+  box-sizing: border-box;
+  font-family: inherit;
+  transition: border-color 0.15s;
+}
+
+.dcw-inp:focus {
+  border-color: var(--accent, #4a9eff);
+}
+
+.dcw-inp::-webkit-inner-spin-button,
+.dcw-inp::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.dcw-inp[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.dcw-sel {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--glass-border, rgba(255,255,255,0.1));
+  background: var(--input-bg, rgba(255,255,255,0.04));
+  color: var(--text-primary, #fff);
+  font-size: 0.9em;
+  outline: none;
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 0.15s;
+}
+
+.dcw-sel:focus {
+  border-color: var(--accent, #4a9eff);
+}
+
+.dcw-sel option {
+  background: var(--card-bg, #1a1a2e);
+  color: var(--text-primary, #e0e0e0);
+}
+
+.dcw-swap {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border, rgba(255,255,255,0.1));
+  background: var(--input-bg, rgba(255,255,255,0.04));
+  color: var(--text-secondary, #888);
+  font-size: 1.1em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, border-color 0.15s;
+  margin-top: 4px;
+  padding: 0;
+  line-height: 1;
+  user-select: none;
+}
+
+.dcw-swap:hover {
+  background: var(--glass-bg-hover, rgba(255,255,255,0.1));
+  border-color: var(--glass-border, rgba(255,255,255,0.15));
+  color: var(--text-primary, #fff);
+}
