@@ -48,3 +48,15 @@ All units are two-way — type on either side, swap with the ⇄ button, or chan
 | `y` | Copy result URL to clipboard |
 
 All keys are ignored while typing in an input field.
+
+### Calculator
+
+`!calc` — interactive scientific calculator with auto-detection. Auto-detects math queries like `2+2`, `sin(30)`, `5!`, or `ln(e)`. Features Deg/Rad angle mode, Inv trig toggle, constants (π, e), factorial, EXP notation, and Ans recall.
+
+![Calculator](plugins/calculator/screenshots/preview.png)
+
+**Auto-detection**: search `2+2`, `sin(45)`, `sqrt(144)`, `5!`, `10*π`, `ln(e)`, `2^8`, or `1/0` — the calculator appears above search results.
+
+**Command**: `!calc 2+2`, `!calc sin(30)^2+cos(30)^2`, or just `!calc` for an empty calculator.
+
+Buttons build the expression; each digit or function updates the result live. `=` evaluates the full expression, `AC` clears, `Ans` recalls the last result. `Deg`/`Rad` and `Inv` are toggle buttons with visual state.
