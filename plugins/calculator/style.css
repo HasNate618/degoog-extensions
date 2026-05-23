@@ -1,0 +1,110 @@
+.calc-w {
+  background: var(--glass-bg, rgba(0,0,0,0.06));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border, rgba(255,255,255,0.08));
+  border-radius: 16px;
+  padding: 16px 20px 20px;
+  margin: 0 0 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+}
+
+.calc-disp {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+  padding: 0 4px;
+}
+
+.calc-expr {
+  font-size: 0.9em;
+  color: var(--text-secondary, #666);
+  text-align: right;
+  min-height: 1.4em;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-variant-numeric: tabular-nums;
+}
+
+.calc-res {
+  font-size: 2em;
+  font-weight: 600;
+  text-align: right;
+  min-height: 1.2em;
+  color: var(--text-primary, #fff);
+  font-variant-numeric: tabular-nums;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.calc-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.calc-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.calc-btn {
+  padding: 10px 0;
+  border-radius: 8px;
+  border: 1px solid var(--glass-border, rgba(255,255,255,0.08));
+  background: var(--input-bg, rgba(255,255,255,0.04));
+  color: var(--text-primary, #fff);
+  font-size: 0.85em;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.12s, border-color 0.12s;
+  user-select: none;
+  line-height: 1;
+  outline: none;
+}
+
+.calc-btn:hover {
+  background: var(--glass-bg-hover, rgba(255,255,255,0.1));
+  border-color: var(--glass-border, rgba(255,255,255,0.15));
+}
+
+.calc-btn:active {
+  background: var(--glass-bg, rgba(255,255,255,0.15));
+  transform: scale(0.96);
+}
+
+.calc-eq {
+  background: var(--accent, #f76f53);
+  border-color: var(--accent, #f76f53);
+  color: #fff;
+}
+
+.calc-eq:hover {
+  opacity: 0.9;
+  background: var(--accent, #f76f53);
+  border-color: var(--accent, #f76f53);
+}
+
+.calc-clr {
+  color: #e06c6c;
+}
+
+.calc-tog {
+  font-size: 0.75em;
+  font-weight: 500;
+}
+
+.calc-act {
+  background: var(--accent, #f76f53);
+  border-color: var(--accent, #f76f53);
+  color: #fff;
+  opacity: 0.85;
+}
+
+.calc-act:hover {
+  opacity: 1;
+}

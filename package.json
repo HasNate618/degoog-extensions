@@ -25,6 +25,13 @@
       "description": "Interactive unit converter widget. Converts length, mass, volume, temperature, digital storage, speed, area, and currency. Auto-detects conversion queries like \"5 feet to meters\" or \"100 kg to lb\". Also supports !convert command.",
       "version": "1.0.0",
       "type": "slot"
+    },
+    {
+      "path": "plugins/calculator",
+      "name": "Calculator",
+      "description": "Scientific calculator. Auto-detects math queries like \"2+2\" or \"sin(30)\". Also supports !calc command. Features Deg/Rad mode, Inv trig, constants, factorial, and more.",
+      "version": "1.0.0",
+      "type": "command"
     }
   ]
 }
